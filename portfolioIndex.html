@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <style>
+
+    body{
+
+        background-color: #92a8d1;
+         font-family: 'Open Sans', sans-serif;
+
+    }
+
+       .profile {
+            text-align: center;
+
+
+       }
+    </style>
+
+
+</head>
+<body>
+
+
+
+
+        <div class="col-lg-4" id="loading">Loading..</div>
+        <div class="col-lg-4 profile" id = "main" hidden>
+            <img id="profileImage" height="200" width="200">
+            <h1 id="fullName"></h1>
+            <p id="bio"></p>
+            <h4 id="followerInfo"></h4>
+            <p>
+                check me on <a id="githubLink"> Github</a>
+            </p>
+            <p><a id="repos">My public repos</a></p>
+            <a class="twitter-timeline" data-width="400" data-height="500" data-theme="dark" href="https://twitter.com/WeAreMessi?ref_src=twsrc%5Etfw">Tweets by WeAreMessi</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+        </div>
+
+
+
+
+
+<script>
+    fetch("https://api.github.com/users/nabin-web")
+    .then(response => response.json())
+    .then(function(data){
+        console.log(data)
+        let followerNumber = data['followers']
+        let followerInfo = `i have been followed by ${followerNumber} awesome people`
+        document.getElementById('profileImage').src = data['avatar_url']
+        document.getElementById('fullName').textContent = data['name']
+        document.getElementById('bio').textContent  = data['bio']
+        document.getElementById('followerInfo').textContent = followerInfo
+        document.getElementById('githubLink').href = data['href']
+        document.getElementById('repos').href = data['repos_url']
+
+        document.getElementById('main').hidden = false
+
+        document.getElementById('loading').hidden = true
+
+
+    })
+
+</script>
+
+</body>
+</html>
